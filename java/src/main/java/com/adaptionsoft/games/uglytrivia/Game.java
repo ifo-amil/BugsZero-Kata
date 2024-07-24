@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
+	// liste de de joueurs
     ArrayList players = new ArrayList();
+
+	//nombre de places disponible pour jouer
     int[] places = new int[6];
+
     int[] purses  = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
     
@@ -14,7 +18,7 @@ public class Game {
     LinkedList sportsQuestions = new LinkedList();
     LinkedList rockQuestions = new LinkedList();
     
-    int currentPlayer = 0;
+  private  int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
@@ -29,7 +33,9 @@ public class Game {
 	public String createRockQuestion(int index){
 		return "Rock Question " + index;
 	}
-
+	/*
+	*
+	* verifie si le nombre de joueurs(minimum deux joueurs) est suffisant pour lancer la partie */
 	public boolean isPlayable() {
 		return (howManyPlayers() >= 2);
 	}
@@ -46,11 +52,15 @@ public class Game {
 	    System.out.println("They are player number " + players.size());
 		return true;
 	}
-	
+	/*
+	/ compter le nombre de joueurs
+	 */
 	public int howManyPlayers() {
 		return players.size();
 	}
-
+/*
+/faire tourner le dé
+ */
 	public void roll(int roll) {
 		System.out.println(players.get(currentPlayer) + " is the current player");
 		System.out.println("They have rolled a " + roll);
@@ -72,8 +82,9 @@ public class Game {
 		}
 		
 	}
-
+   // changer de joeur et poser une nouvelle question
 	private void movePlayerAndAskQuestion(int roll) {
+
 		places[currentPlayer] = places[currentPlayer] + roll;
 		if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 
@@ -97,6 +108,7 @@ public class Game {
 	
 	
 	private String currentCategory() {
+		// pourquoi tous ses if? on pourrais utiliser des switch case
 		if (places[currentPlayer] == 0) return "Pop";
 		if (places[currentPlayer] == 4) return "Pop";
 		if (places[currentPlayer] == 8) return "Pop";
@@ -134,7 +146,7 @@ public class Game {
 			
 		} else {
 		
-			System.out.println("Answer was corrent!!!!");
+			System.out.println("Answer was correct!!!!");
 			purses[currentPlayer]++;
 			System.out.println(players.get(currentPlayer) 
 					+ " now has "
